@@ -1,10 +1,7 @@
 import {
-  Pressable,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
-import { COLORS } from "../styles";
 import TextField from "./TextField";
 import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
