@@ -7,8 +7,8 @@ import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
 import { useState } from "react";
 
-const Item = (props: { text: string; onClick: () => void }) => {
-  const { text, onClick } = props;
+const Item = (props: { text: string }) => {
+  const { text } = props;
   const [selected, setSelected] = useState<boolean>(false);
 
   return (
