@@ -25,7 +25,6 @@ const Item = (props: { text: string }) => {
               onValueChange={() => {
                 setFinished(!finished);
               }}
-              // color={isChecked ? '#4630EB' : undefined}
             />
           </Container>
         </View>
@@ -40,7 +39,6 @@ const Item = (props: { text: string }) => {
               style={{
                 ...{ fontSize: 18 },
                 ...(finished ? strikeThroughStyle : {}),
-                // fontSize: 18
               }}
             >
               {text}
