@@ -95,10 +95,11 @@ export const deleteItem = async (item: IListItem | string): Promise<void> => {
  * gets Items list
  * @returns Array<IListItem>
  */
-export const getAllItems = async (): Promise<Array<IListItem> | undefined> => {
+export const getAllItems = async (): Promise<Array<IListItem>> => {
   try {
-    return (await getData(key)) as Array<IListItem> | undefined;
+    return ((await getData(key)) as Array<IListItem>) ?? [];
   } catch (e) {
+    return [];
     // error reading value
   }
 };
@@ -107,14 +108,15 @@ export const getAllItems = async (): Promise<Array<IListItem> | undefined> => {
  * get Items that werent deleted
  * @returns Array<IListItem>
  */
-export const getAllCurrentItems = async (): Promise<
-  Array<IListItem> | undefined
-> => {
+export const getAllCurrentItems = async (): Promise<Array<IListItem>> => {
   try {
-    return ((await getData(key)) as Array<IListItem> | undefined)?.filter(
-      (item: IListItem) => !item.deleted,
+    return (
+      ((await getData(key)) as Array<IListItem>)?.filter(
+        (item: IListItem) => !item.deleted,
+      ) || []
     );
   } catch (e) {
+    return [];
     // error reading value
   }
 };
@@ -123,14 +125,15 @@ export const getAllCurrentItems = async (): Promise<
  * get Items that were deleted
  * @returns Array<IListItem>
  */
-export const getAllDeletedItems = async (): Promise<
-  Array<IListItem> | undefined
-> => {
+export const getAllDeletedItems = async (): Promise<Array<IListItem>> => {
   try {
-    return ((await getData(key)) as Array<IListItem> | undefined)?.filter(
-      (item: IListItem) => item.deleted,
+    return (
+      ((await getData(key)) as Array<IListItem>)?.filter(
+        (item: IListItem) => item.deleted,
+      ) || []
     );
   } catch (e) {
+    return [];
     // error reading value
   }
 };

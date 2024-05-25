@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Item from "../components/Item";
 import PageContainer from "../layouts/PageContainer";
 import Button from "../components/Button";
 import { View } from "react-native";
 import IListItem from "../interfaces/ListItem";
+import { getAllCurrentItems } from "../storage/listStorage";
 
 const List = () => {
-  const [finished, setFinished] = useState<IListItem>();
+  const [listItem, setListItem] = useState<Array<IListItem>>();
   
+  useEffect(() => {
+    getAllCurrentItems().then((list: Array<IListItem>) => {
+      setListItem(list);
+    });
+  }, []);
+
   return (
     <PageContainer>
       <View style={{ display: "flex", flexDirection: "row-reverse" }}>
