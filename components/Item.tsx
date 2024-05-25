@@ -1,7 +1,4 @@
-import {
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { TextStyle, TouchableOpacity, View } from "react-native";
 import TextField from "./TextField";
 import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
@@ -9,8 +6,13 @@ import { useState } from "react";
 
 const Item = (props: { text: string }) => {
   const { text } = props;
-  const [selected, setSelected] = useState<boolean>(false);
+  const [finished, setFinished] = useState<boolean>(false);
 
+  const strikeThroughStyle: TextStyle = {
+    textDecorationLine: "line-through",
+    textDecorationStyle: "solid",
+  };
+  
   return (
     <View>
       <View
@@ -19,8 +21,10 @@ const Item = (props: { text: string }) => {
         <View style={{ flex: 0 }}>
           <Container>
             <Checkbox
-              value={selected}
-              onValueChange={() => {setSelected(!selected)}}
+              value={finished}
+              onValueChange={() => {
+                setFinished(!finished);
+              }}
               // color={isChecked ? '#4630EB' : undefined}
             />
           </Container>
@@ -32,7 +36,15 @@ const Item = (props: { text: string }) => {
               paddingVertical: 14,
             }}
           >
-            <TextField style={{ fontSize: 18 }}>{text}</TextField>
+            <TextField
+              style={{
+                ...{ fontSize: 18 },
+                ...(finished ? strikeThroughStyle : {}),
+                // fontSize: 18
+              }}
+            >
+              {text}
+            </TextField>
           </TouchableOpacity>
         </View>
       </View>
