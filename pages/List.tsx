@@ -8,7 +8,9 @@ import { getAllCurrentItems } from "../storage/listStorage";
 
 const List = () => {
   const [listItem, setListItem] = useState<Array<IListItem>>();
+  const [edit, setEdit] = useState<boolean>(true);
   
+
   useEffect(() => {
     getAllCurrentItems().then((list: Array<IListItem>) => {
       setListItem(list);
@@ -18,11 +20,11 @@ const List = () => {
   return (
     <PageContainer>
       <View style={{ display: "flex", flexDirection: "row-reverse" }}>
-        <Button text="Add" onClick={() => {}} />
+        <Button text="Add" onClick={() => {setEdit(!edit)}} />
       </View>
       
 
-      <Item text={"Exemplo"} />
+      <Item text={"Exemplo"}  edit={edit} onBlur={()=>setEdit(false)}/>
     </PageContainer>
   );
 };
