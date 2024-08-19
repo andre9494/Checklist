@@ -26,8 +26,49 @@ export const COLORS = {
   background: "#223",
   squareGreen: "#368056",
   squareRed: "#c74444",
+  delete: "#F00",
 };
-// const fontColor = "#FFF";
+
+export const swipeListStyles = StyleSheet.create({
+  container: {
+    // backgroundColor: "white",
+    flex: 1,
+  },
+  backTextWhite: {
+    color: COLORS.white,
+  },
+  rowFront: {
+    alignItems: "center",
+    // backgroundColor: "#blue",
+    borderBottomColor: "black",
+    borderBottomWidth: 1,
+    justifyContent: "center",
+    height: 50,
+  },
+  rowBack: {
+    alignItems: "center",
+    backgroundColor: COLORS.delete,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 15,
+  },
+  backRightBtn: {
+    alignItems: "center",
+    bottom: 0,
+    justifyContent: "center",
+    position: "absolute",
+    top: 0,
+    width: 75,
+  },
+  backRightBtnRight: {
+    backgroundColor: COLORS.delete,
+    right: 0,
+  },
+  rowFrontContainer: {
+    backgroundColor: COLORS.background,
+  },
+});
 
 const styles = StyleSheet.create({
   appBackground: {
