@@ -63,7 +63,7 @@ const List = () => {
         {item && (
           <Item
             text={item.title}
-            edit={edit && (item.id == editId)}
+            edit={edit && item.id == editId}
             setEdit={setEdit}
             onBlur={() => setEdit(false)}
           />
@@ -79,8 +79,6 @@ const List = () => {
     }
   };
 
-  console.log("cenas: ", data?.map((x)=>x.id).join(", "));
-  
   return (
     <PageContainer>
       <View style={{ display: "flex", flexDirection: "row-reverse" }}>

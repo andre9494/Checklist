@@ -11,7 +11,6 @@ Array(20)
     rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
   });
 
-// const SwipeList = () => {
 const SwipeList = (props: {
   listData: Array<ISwipeListItem>;
   setListData: React.Dispatch<React.SetStateAction<Array<ISwipeListItem>>>;
@@ -23,7 +22,6 @@ const SwipeList = (props: {
   const animationIsRunning = useRef(false);
 
   const onSwipeDelete = (swipeData: { key: string; value: number }) => {
-    // const { key, value: text } = swipeData;
     if (
       swipeData.value < -Dimensions.get("window").width &&
       !animationIsRunning.current
@@ -45,33 +43,6 @@ const SwipeList = (props: {
       });
     }
   };
-
-  // const renderItemContainer = (data: { item: ISwipeListItem }) => (
-  //   <Animated.View
-  //     style={[
-  //       swipeListStyles.rowFrontContainer,
-  //       {
-  //         height: rowTranslateAnimatedValues[data.item.key].interpolate({
-  //           inputRange: [0, 1],
-  //           outputRange: [0, 50],
-  //         }),
-  //       },
-  //     ]}
-  //   >
-  //     {/* <View>
-  //         <Text style={{color: COLORS.white}}>I am {data.item.text} in a SwipeListView</Text>
-  //       </View> */}
-
-  //   </Animated.View>
-  // );
-
-  // const renderItem = (data: { item: ISwipeListItem }) => (
-  //   <View>
-  //     <Text style={{ color: COLORS.white }}>
-  //       I am {data.item.text} in a SwipeListView
-  //     </Text>
-  //   </View>
-  // );
 
   const renderItemContainer = (data: { item: ISwipeListItem }) => (
     <Animated.View
@@ -103,20 +74,6 @@ const SwipeList = (props: {
   );
 
   return (
-    // <View style={styles.container}>
-    //   <SwipeListView
-    //     disableRightSwipe
-    //     data={listData}
-    //     renderItem={renderItem}
-    //     renderHiddenItem={deleteLayer}
-    //     rightOpenValue={-Dimensions.get("window").width}
-    //     previewRowKey={"0"}
-    //     previewOpenValue={-40}
-    //     previewOpenDelay={3000}
-    //     onSwipeValueChange={onSwipeValueChange}
-    //     useNativeDriver={false}
-    //   />
-    // </View>
     <SwipeListView
       disableRightSwipe
       data={listData}
