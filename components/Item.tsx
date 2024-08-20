@@ -4,18 +4,15 @@ import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
 import { useState } from "react";
 import { COLORS } from "../styles";
-import Button from "./Button";
-import IconButton from "./IconButton";
+import IconButton from "./util/IconButton";
 
 const Item = (props: {
   text: string;
   edit?: boolean;
   setEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  editId: string | undefined;
-  setEditId: React.Dispatch<React.SetStateAction<string | undefined>>;
   onBlur: () => void;
 }) => {
-  const { text, edit, setEdit, editId, setEditId, onBlur } = props;
+  const { text, edit, setEdit, onBlur } = props;
   const [finished, setFinished] = useState<boolean>(false);
 
   const strikeThroughStyle: TextStyle = {
@@ -23,12 +20,7 @@ const Item = (props: {
     textDecorationStyle: "solid",
   };
 
-  const checkEditable = () => edit && editId;
-
-  const stopEditing = () => {
-    setEdit(false);
-    setEditId(undefined);
-  };
+  const checkEditable = () => edit;
 
   return (
     <View>
@@ -57,8 +49,8 @@ const Item = (props: {
                       fontSize: 18,
                       color: COLORS.white,
                     }}
-                    placeholder="Fill you note"
-                    placeholderTextColor={COLORS.white}
+                    placeholder="Write your item"
+                    placeholderTextColor={COLORS.greyD}
                     onEndEditing={onBlur}
                   />
                 </View>

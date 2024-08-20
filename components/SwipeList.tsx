@@ -1,19 +1,8 @@
-import React, { useState, useRef } from "react";
-import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from "react-native";
+import React, { useRef } from "react";
+import { Animated, Dimensions, Text, View } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { COLORS, swipeListStyles } from "../styles";
-
-interface ISwipeListItem {
-  key: string;
-  text: string;
-}
+import { swipeListStyles } from "../styles";
+import ISwipeListItem from "../interfaces/ISwipeListItem";
 
 const rowTranslateAnimatedValues: { [key: string]: Animated.Value } = {};
 Array(20)
@@ -22,37 +11,69 @@ Array(20)
     rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
   });
 
-const SwipeList = (items: ISwipeListItem) => {
-  const [listData, setListData] = useState<ISwipeListItem[]>(
-    Array(20)
-      .fill("")
-      .map((_, i) => ({ key: `${i}`, text: `item #${i}` })),
-  );
+// const SwipeList = () => {
+const SwipeList = (props: {
+  listData: Array<ISwipeListItem>;
+  setListData: React.Dispatch<React.SetStateAction<Array<ISwipeListItem>>>;
+  renderItem: any;
+  onDelete: (key: string) => void;
+}) => {
+  const { renderItem, listData, setListData, onDelete } = props;
 
   const animationIsRunning = useRef(false);
 
-  const onSwipeValueChange = (swipeData: { key: string; value: number }) => {
-    const { key, value } = swipeData;
+  const onSwipeDelete = (swipeData: { key: string; value: number }) => {
+    // const { key, value: text } = swipeData;
     if (
-      value < -Dimensions.get("window").width &&
+      swipeData.value < -Dimensions.get("window").width &&
       !animationIsRunning.current
     ) {
       animationIsRunning.current = true;
-      Animated.timing(rowTranslateAnimatedValues[key], {
+      Animated.timing(rowTranslateAnimatedValues[swipeData.key], {
         toValue: 0,
         duration: 200,
         useNativeDriver: false,
       }).start(() => {
         const newData = [...listData];
-        const prevIndex = listData.findIndex((item) => item.key === key);
+        const prevIndex = listData.findIndex(
+          (item) => item.key === swipeData.key,
+        );
         newData.splice(prevIndex, 1);
         setListData(newData);
+        onDelete(swipeData.key);
         animationIsRunning.current = false;
       });
     }
   };
 
-  const renderItem = (data: { item: ISwipeListItem }) => (
+  // const renderItemContainer = (data: { item: ISwipeListItem }) => (
+  //   <Animated.View
+  //     style={[
+  //       swipeListStyles.rowFrontContainer,
+  //       {
+  //         height: rowTranslateAnimatedValues[data.item.key].interpolate({
+  //           inputRange: [0, 1],
+  //           outputRange: [0, 50],
+  //         }),
+  //       },
+  //     ]}
+  //   >
+  //     {/* <View>
+  //         <Text style={{color: COLORS.white}}>I am {data.item.text} in a SwipeListView</Text>
+  //       </View> */}
+
+  //   </Animated.View>
+  // );
+
+  // const renderItem = (data: { item: ISwipeListItem }) => (
+  //   <View>
+  //     <Text style={{ color: COLORS.white }}>
+  //       I am {data.item.text} in a SwipeListView
+  //     </Text>
+  //   </View>
+  // );
+
+  const renderItemContainer = (data: { item: ISwipeListItem }) => (
     <Animated.View
       style={[
         swipeListStyles.rowFrontContainer,
@@ -64,20 +85,18 @@ const SwipeList = (items: ISwipeListItem) => {
         },
       ]}
     >
-      {/* <TouchableHighlight
-        onPress={() => console.log("You touched me")}
-        style={swipeListStyles.rowFront}
-      > */}
-        <View>
-          <Text style={{color: COLORS.white}}>I am {data.item.text} in a SwipeListView</Text>
-        </View>
-      {/* </TouchableHighlight> */}
+      {renderItem(data)}
     </Animated.View>
   );
 
   const deleteLayer = () => (
     <View style={swipeListStyles.rowBack}>
-      <View style={[swipeListStyles.backRightBtn, swipeListStyles.backRightBtnRight]}>
+      <View
+        style={[
+          swipeListStyles.backRightBtn,
+          swipeListStyles.backRightBtnRight,
+        ]}
+      >
         <Text style={swipeListStyles.backTextWhite}>Delete</Text>
       </View>
     </View>
@@ -98,20 +117,18 @@ const SwipeList = (items: ISwipeListItem) => {
     //     useNativeDriver={false}
     //   />
     // </View>
-      <SwipeListView
-        disableRightSwipe
-        data={listData}
-        renderItem={renderItem}
-        renderHiddenItem={deleteLayer}
-        rightOpenValue={-Dimensions.get("window").width}
-        previewRowKey={"0"}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-        onSwipeValueChange={onSwipeValueChange}
-        useNativeDriver={false}
-      />
+    <SwipeListView
+      disableRightSwipe
+      data={listData}
+      renderItem={renderItemContainer}
+      renderHiddenItem={deleteLayer}
+      rightOpenValue={-Dimensions.get("window").width}
+      previewRowKey={"0"}
+      previewOpenValue={-40}
+      previewOpenDelay={3000}
+      onSwipeValueChange={onSwipeDelete}
+      useNativeDriver={false}
+    />
   );
 };
 export default SwipeList;
-
-

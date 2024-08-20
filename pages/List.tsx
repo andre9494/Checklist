@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
 import PageContainer from "../layouts/PageContainer";
-import Button from "../components/Button";
+import Button from "../components/util/Button";
 import { View } from "react-native";
 import IListItem from "../interfaces/ListItem";
 import { getAllCurrentItems } from "../storage/listStorage";
 import SwipeList from "../components/SwipeList";
+import Item from "../components/Item";
+import ISwipeListItem from "../interfaces/ISwipeListItem";
 
 const List = () => {
-  const [listItem, setListItem] = useState<Array<IListItem>>();
+  const [data, setData] = useState<Array<IListItem>>();
+  const [listItems, setListItems] = useState<Array<ISwipeListItem>>([]);
   const [edit, setEdit] = useState<boolean>(true);
-  const [editId, setEditId] = useState<string | undefined>("askdsa");
+  const [editId, setEditId] = useState<string | undefined>("2");
 
   useEffect(() => {
     getAllCurrentItems().then((list: Array<IListItem>) => {
       // setListItem(list);
-      setListItem([
+      const a = [
         {
           id: "1",
           title: "teste1",
@@ -28,15 +31,56 @@ const List = () => {
           deleted: false,
         },
         {
-          id: "1",
+          id: "3",
           title: "teste3",
           finished: false,
           deleted: false,
         },
-      ]);
+        {
+          id: "4",
+          title: "teste4",
+          finished: false,
+          deleted: false,
+        },
+        {
+          id: "5",
+          title: "teste5",
+          finished: false,
+          deleted: false,
+        },
+      ];
+      setData(a);
+      setListItems(a.map((x) => ({ key: x.id, text: x.title })));
     });
   }, []);
 
+  const renderItem = (selected: { item: ISwipeListItem }) => {
+    const item: IListItem | undefined = data?.find(
+      (x: IListItem) => x.id == selected.item.key,
+    );
+    return (
+      <>
+        {item && (
+          <Item
+            text={item.title}
+            edit={edit && (item.id == editId)}
+            setEdit={setEdit}
+            onBlur={() => setEdit(false)}
+          />
+        )}
+      </>
+    );
+  };
+
+  const onDelete = (key: string) => {
+    if (data) {
+      const filteredData = [...data.filter((x: IListItem) => x.id != key)];
+      setData(filteredData);
+    }
+  };
+
+  console.log("cenas: ", data?.map((x)=>x.id).join(", "));
+  
   return (
     <PageContainer>
       <View style={{ display: "flex", flexDirection: "row-reverse" }}>
@@ -47,59 +91,12 @@ const List = () => {
           }}
         />
       </View>
-
-      {/* <View>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <SwipeList />
-        </View>
-        <View style={{ backgroundColor: "#FFF", height: 0.5 }}></View>
-      </View> */}
-      <SwipeList />
-
-      {/* <Item
-        text={"Exemplo"}
-        edit={edit}
-        setEdit={setEdit}
-        editId={editId}
-        onBlur={() => setEdit(false)}
-        setEditId={setEditId}
-      /> */}
-
-      {/* <SwipeListContainer/> */}
-
-      {/* <SwipeListView
-        data={listItem?.map((item) => ({ ...Item, key: item.id }))}
-        renderItem={(data, rowMap) => (
-          <Item
-            text={"Exemplo"}
-            edit={edit}
-            setEdit={setEdit}
-            editId={editId}
-            onBlur={() => setEdit(false)}
-            setEditId={setEditId}
-          />
-        )}
-        // renderHiddenItem={ (data, rowMap) => (
-        //     <View style={styles.rowBack}>
-        //         <Text>Left</Text>
-        //         <Text>Right</Text>
-        //     </View>
-        // )}
-        // leftOpenValue={75}
-        rightOpenValue={-75}
-      /> */}
-
-      {/* <View style={{ display: "flex", flexDirection: "row-reverse" }}>
-        <Button text="Save" onClick={() => {setEdit(!edit)}} />
-      </View> */}
-
-      {/* {listItem?.map((item: IListItem) => <TextField>{item.title}</TextField>)} */}
+      <SwipeList
+        renderItem={renderItem}
+        listData={listItems}
+        setListData={setListItems}
+        onDelete={onDelete}
+      />
     </PageContainer>
   );
 };

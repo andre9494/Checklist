@@ -1,9 +1,9 @@
 import { TouchableOpacity, View } from "react-native";
-import { COLORS, Style } from "../styles";
-import TextField from "./TextField";
+import { COLORS, Style } from "../../styles";
+import TextField from "../TextField";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-const Button = (props: {
+const IconButton = (props: {
   text?: string;
   icon?: keyof typeof Ionicons.glyphMap;
   onClick: () => void;
@@ -16,12 +16,6 @@ const Button = (props: {
     <TouchableOpacity
       style={{
         ...style,
-        paddingHorizontal: 20,
-        paddingVertical: 6,
-        backgroundColor: COLORS.squareGreen,
-        borderRadius: 5,
-        borderColor: `${COLORS.squareGreen}`,
-        borderWidth: 3,
       }}
       onPress={onClick}
     >
@@ -42,4 +36,4 @@ const Button = (props: {
     </TouchableOpacity>
   );
 };
-export default Button;
+export default IconButton;
