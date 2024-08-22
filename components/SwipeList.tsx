@@ -4,18 +4,6 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import { swipeListStyles } from "../styles";
 import ISwipeListItem from "../interfaces/ISwipeListItem";
 
-// const rowTranslateAnimatedValues: { [key: string]: Animated.Value } = {};
-// // Array(20)
-// //   .fill("")
-// //   .forEach((_, i) => {
-// //     rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
-// //   });
-// Array(20)
-//   .fill("")
-//   .forEach((_, i) => {
-//     rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
-//   });
-
 const SwipeList = (props: {
   listData: Array<ISwipeListItem>;
   setListData: React.Dispatch<React.SetStateAction<Array<ISwipeListItem>>>;
@@ -23,26 +11,16 @@ const SwipeList = (props: {
   onDelete: (key: string) => void;
 }) => {
   const { renderItem, listData, setListData, onDelete } = props;
-  
+
   const rowTranslateAnimatedValues: { [key: string]: Animated.Value } = {};
-  
+
   listData.forEach((item) => {
     rowTranslateAnimatedValues[item.key] = new Animated.Value(1);
   });
-  
-  // Array(20)
-  //   .fill("")
-  //   .forEach((_, i) => {
-  //     rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
-  //   });
-  Array(20)
-    .fill("")
-    .forEach((_, i) => {
-      rowTranslateAnimatedValues[`${i}`] = new Animated.Value(1);
-    });
 
   const animationIsRunning = useRef(false);
 
+  //#region onSwipe
   const onSwipeDelete = (swipeData: { key: string; value: number }) => {
     if (
       swipeData.value < -Dimensions.get("window").width &&
@@ -65,6 +43,7 @@ const SwipeList = (props: {
       });
     }
   };
+  //#endregion
 
   const renderItemContainer = (data: { item: ISwipeListItem }) => (
     <Animated.View
@@ -80,10 +59,10 @@ const SwipeList = (props: {
     >
       {renderItem(data)}
     </Animated.View>
-    // <>{renderItem(data)}</>
   );
 
-  const deleteLayer = () => (
+  //#region deleteBackLayer
+  const deleteBackLayer = () => (
     <View style={swipeListStyles.rowBack}>
       <View
         style={[
@@ -95,20 +74,21 @@ const SwipeList = (props: {
       </View>
     </View>
   );
+  //#endregion
 
   return (
-      <SwipeListView
-        disableRightSwipe
-        data={listData}
-        renderItem={renderItemContainer}
-        renderHiddenItem={deleteLayer}
-        rightOpenValue={-Dimensions.get("window").width}
-        previewRowKey={"0"}
-        previewOpenValue={-40}
-        previewOpenDelay={3000}
-        onSwipeValueChange={onSwipeDelete}
-        useNativeDriver={false}
-      />
+    <SwipeListView
+      disableRightSwipe
+      data={listData}
+      renderItem={renderItemContainer}
+      renderHiddenItem={deleteBackLayer}
+      rightOpenValue={-Dimensions.get("window").width}
+      previewRowKey={"0"}
+      previewOpenValue={-40}
+      previewOpenDelay={3000}
+      onSwipeValueChange={onSwipeDelete}
+      useNativeDriver={false}
+    />
   );
 };
 export default SwipeList;

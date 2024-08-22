@@ -12,7 +12,6 @@ const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
   const [listItems, setListItems] = useState<Array<ISwipeListItem>>([]);
   const [edit, setEdit] = useState<boolean>(true);
-  const [editId, setEditId] = useState<string | undefined>();
 
   useEffect(() => {
     getAllCurrentItems().then((list: Array<IListItem>) => {
@@ -200,15 +199,7 @@ const List = () => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   console.log("adsahbd");
-  //   if(data){
-  //     data.forEach((item) => {
-  //       console.log("listEdit", edit && item.id == editId);
-  //     });
-  //   }
-  // }, [edit]);
-
+  //#region item support functions
   const renderItem = (selected: { item: ISwipeListItem }) => {
     const item: IListItem | undefined = data?.find(
       (x: IListItem) => x.id == selected.item.key,
@@ -234,6 +225,7 @@ const List = () => {
       setData(filteredData);
     }
   };
+  //#endregion
 
   return (
     <PageContainer>
