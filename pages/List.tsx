@@ -7,6 +7,7 @@ import { getAllCurrentItems } from "../storage/listStorage";
 import SwipeList from "../components/SwipeList";
 import Item from "../components/Item";
 import ISwipeListItem from "../interfaces/ISwipeListItem";
+import CONSTANTS from "../constans";
 
 const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
@@ -231,7 +232,7 @@ const List = () => {
     <PageContainer>
       <View style={{ display: "flex", flexDirection: "row-reverse" }}>
         <Button
-          text="Add"
+          text={CONSTANTS.STRING.ADD}
           onClick={() => {
             setEdit(!edit);
           }}
