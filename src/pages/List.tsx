@@ -7,7 +7,7 @@ import { getAllCurrentItems } from "../storage/listStorage";
 import SwipeList from "../components/SwipeList";
 import Item from "../components/Item";
 import ISwipeListItem from "../interfaces/ISwipeListItem";
-import CONSTANTS from "../constans";
+import CONSTANTS from "../constants";
 
 const List = () => {
   const [data, setData] = useState<Array<IListItem>>();

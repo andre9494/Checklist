@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import styles from "../styles";
+import styles from "../../styles";
 
 const CenteredContainer = (props: { children: React.ReactNode }) => {
   const { children } = props;

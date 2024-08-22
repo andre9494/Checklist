@@ -3,7 +3,7 @@ import TextField from "./TextField";
 import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
 import { useState } from "react";
-import { COLORS } from "../styles";
+import { COLORS } from "../../styles";
 import IconButton from "./util/IconButton";
 import IListItem from "../interfaces/ListItem";
 

@@ -1,5 +1,5 @@
 import { TouchableOpacity, View } from "react-native";
-import { COLORS, Style } from "../../styles";
+import { COLORS, Style } from "../../../styles";
 import TextField from "../TextField";
 import Ionicons from "@expo/vector-icons/Ionicons";
 

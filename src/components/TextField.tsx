@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import styles, { Style } from "../styles";
+import styles, { Style } from "../../styles";
 import React from "react";
 
 const TextField = (props: { children: string | string[] | number; style?: Style }) => {

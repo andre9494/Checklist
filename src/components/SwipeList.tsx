@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Animated, Dimensions, Text, View } from "react-native";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { swipeListStyles } from "../styles";
+import { swipeListStyles } from "../../styles";
 import ISwipeListItem from "../interfaces/ISwipeListItem";
 
 const SwipeList = (props: {
