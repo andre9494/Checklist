@@ -5,22 +5,24 @@ import Container from "../layouts/Container";
 import { useState } from "react";
 import { COLORS } from "../styles";
 import IconButton from "./util/IconButton";
+import IListItem from "../interfaces/ListItem";
 
-const Item = (props: {
-  text: string;
-  edit?: boolean;
-  setEdit: React.Dispatch<React.SetStateAction<boolean>>;
-  onBlur: () => void;
-}) => {
-  const { text, edit, setEdit, onBlur } = props;
+const Item = (props: { item: IListItem }) => {
+  // const { text, edit, setEdit, onBlur } = props;
+  // const { item } = props;
   const [finished, setFinished] = useState<boolean>(false);
+  const [item, setItem] = useState<IListItem>(props.item);
+
+  const refreshItem = () => {
+    setItem({ ...item });
+  };
 
   const strikeThroughStyle: TextStyle = {
     textDecorationLine: "line-through",
     textDecorationStyle: "solid",
   };
 
-  const checkEditable = () => edit;
+  // console.log("item: " + item.id + ", edit:", item.edit);
 
   return (
     <View>
@@ -38,7 +40,7 @@ const Item = (props: {
           </Container>
         </View>
         <View style={{ flex: 1 }}>
-          {checkEditable() ? (
+          {item.edit ? (
             <>
               <View style={{ flexDirection: "row" }}>
                 <View style={{ flex: 1 }}>
@@ -51,17 +53,22 @@ const Item = (props: {
                     }}
                     placeholder="Write your item"
                     placeholderTextColor={COLORS.greyD}
-                    onEndEditing={onBlur}
+                    onEndEditing={() => {
+                      // item.title 
+                      item.edit = false;
+                      refreshItem();
+                    }}
+                    autoFocus={true}
                   />
                 </View>
-                <View style={{ alignSelf: "center", flex: 0 }}>
+                {/* <View style={{ alignSelf: "center", flex: 0 }}>
                   <IconButton
                     icon="add-circle-outline"
                     onClick={() => {
                       return;
                     }}
                   />
-                </View>
+                </View> */}
               </View>
             </>
           ) : (
@@ -70,6 +77,11 @@ const Item = (props: {
                 paddingHorizontal: 20,
                 paddingVertical: 14,
               }}
+              onPress={() => {
+                item.edit = true;
+
+                refreshItem();
+              }}
             >
               <TextField
                 style={{
@@ -77,7 +89,7 @@ const Item = (props: {
                   ...(finished ? strikeThroughStyle : {}),
                 }}
               >
-                {text}
+                {item.title}
               </TextField>
             </TouchableOpacity>
           )}

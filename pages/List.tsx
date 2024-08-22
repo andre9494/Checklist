@@ -12,47 +12,202 @@ const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
   const [listItems, setListItems] = useState<Array<ISwipeListItem>>([]);
   const [edit, setEdit] = useState<boolean>(true);
-  const [editId, setEditId] = useState<string | undefined>("2");
+  const [editId, setEditId] = useState<string | undefined>();
 
   useEffect(() => {
     getAllCurrentItems().then((list: Array<IListItem>) => {
-      // setListItem(list);
+      //#region mockdata
       const a = [
         {
           id: "1",
-          title: "teste1",
+          title: "teste 1",
           finished: false,
           deleted: false,
+          edit: false,
         },
         {
           id: "2",
-          title: "teste2",
+          title: "teste 2",
           finished: false,
           deleted: false,
+          edit: false,
         },
         {
           id: "3",
-          title: "teste3",
+          title: "teste 3",
           finished: false,
           deleted: false,
+          edit: false,
         },
         {
           id: "4",
-          title: "teste4",
+          title: "teste 4",
           finished: false,
           deleted: false,
+          edit: false,
         },
         {
           id: "5",
-          title: "teste5",
+          title: "teste 5",
           finished: false,
           deleted: false,
+          edit: false,
+        },
+        {
+          id: "6",
+          title: "teste 1",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "7",
+          title: "teste 2",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "8",
+          title: "teste 3",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "9",
+          title: "teste 4",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "10",
+          title: "teste 5",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "11",
+          title: "teste 1",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "12",
+          title: "teste 2",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "13",
+          title: "teste 3",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "14",
+          title: "teste 4",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "15",
+          title: "teste 5",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "16",
+          title: "teste 1",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "17",
+          title: "teste 2",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "18",
+          title: "teste 3",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "19",
+          title: "limit before failing",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "20",
+          title: "teste 5",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "21",
+          title: "teste 1",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "22",
+          title: "teste 2",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "23",
+          title: "teste 3",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "24",
+          title: "teste 4",
+          finished: false,
+          deleted: false,
+          edit: false,
+        },
+        {
+          id: "25",
+          title: "teste 5",
+          finished: false,
+          deleted: false,
+          edit: false,
         },
       ];
+      //#endregion
       setData(a);
       setListItems(a.map((x) => ({ key: x.id, text: x.title })));
     });
   }, []);
+
+  // useEffect(() => {
+  //   console.log("adsahbd");
+  //   if(data){
+  //     data.forEach((item) => {
+  //       console.log("listEdit", edit && item.id == editId);
+  //     });
+  //   }
+  // }, [edit]);
 
   const renderItem = (selected: { item: ISwipeListItem }) => {
     const item: IListItem | undefined = data?.find(
@@ -62,10 +217,11 @@ const List = () => {
       <>
         {item && (
           <Item
-            text={item.title}
-            edit={edit && item.id == editId}
-            setEdit={setEdit}
-            onBlur={() => setEdit(false)}
+            // text={item.title}
+            item={item}
+            // edit={edit && item.id == editId}
+            // setEdit={setEdit}
+            // onBlur={() => setEdit(false)}
           />
         )}
       </>
