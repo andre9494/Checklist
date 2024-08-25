@@ -4,8 +4,8 @@ import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
 import { useState } from "react";
 import { COLORS } from "../../styles";
-import IconButton from "./util/IconButton";
 import IListItem from "../interfaces/ListItem";
+import CONSTANTS from "../constants";
 
 const Item = (props: { item: IListItem }) => {
   // const { text, edit, setEdit, onBlur } = props;
@@ -14,6 +14,7 @@ const Item = (props: { item: IListItem }) => {
   const [item, setItem] = useState<IListItem>(props.item);
 
   const refreshItem = () => {
+    props.item = item;
     setItem({ ...item });
   };
 
@@ -23,6 +24,18 @@ const Item = (props: { item: IListItem }) => {
   };
 
   // console.log("item: " + item.id + ", edit:", item.edit);
+
+  const onEndEditing = (e: any) => {
+    
+    console.log("onEndEditing ", item.id);
+
+    const newValue = e.nativeEvent.text;
+    if (newValue) {
+      item.title = newValue;
+    }
+    item.edit = false;
+    refreshItem();
+  };
 
   return (
     <View>
@@ -41,36 +54,22 @@ const Item = (props: { item: IListItem }) => {
         </View>
         <View style={{ flex: 1 }}>
           {item.edit ? (
-            <>
-              <View style={{ flexDirection: "row" }}>
-                <View style={{ flex: 1 }}>
-                  <TextInput
-                    style={{
-                      marginHorizontal: 20,
-                      marginVertical: 14,
-                      fontSize: 18,
-                      color: COLORS.white,
-                    }}
-                    placeholder="Write your item"
-                    placeholderTextColor={COLORS.greyD}
-                    onEndEditing={() => {
-                      // item.title 
-                      item.edit = false;
-                      refreshItem();
-                    }}
-                    autoFocus={true}
-                  />
-                </View>
-                {/* <View style={{ alignSelf: "center", flex: 0 }}>
-                  <IconButton
-                    icon="add-circle-outline"
-                    onClick={() => {
-                      return;
-                    }}
-                  />
-                </View> */}
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ flex: 1 }}>
+                <TextInput
+                  style={{
+                    marginHorizontal: 20,
+                    marginVertical: 14,
+                    fontSize: 18,
+                    color: COLORS.white,
+                  }}
+                  placeholder={item.title || CONSTANTS.STRING.WRITE_YOUR_ITEM}
+                  placeholderTextColor={COLORS.greyC}
+                  autoFocus={true}
+                  onEndEditing={onEndEditing}
+                />
               </View>
-            </>
+            </View>
           ) : (
             <TouchableOpacity
               style={{

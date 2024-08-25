@@ -77,18 +77,20 @@ const SwipeList = (props: {
   //#endregion
 
   return (
-    <SwipeListView
-      disableRightSwipe
-      data={listData}
-      renderItem={renderItemContainer}
-      renderHiddenItem={deleteBackLayer}
-      rightOpenValue={-Dimensions.get("window").width}
-      previewRowKey={"0"}
-      previewOpenValue={-40}
-      previewOpenDelay={3000}
-      onSwipeValueChange={onSwipeDelete}
-      useNativeDriver={false}
-    />
+    <View>
+      <SwipeListView
+        disableRightSwipe
+        data={listData}
+        renderItem={renderItemContainer}
+        renderHiddenItem={deleteBackLayer}
+        rightOpenValue={-Dimensions.get("window").width}
+        previewRowKey={"0"}
+        previewOpenValue={-40}
+        previewOpenDelay={3000}
+        onSwipeValueChange={onSwipeDelete}
+        useNativeDriver={false}
+      />
+    </View>
   );
 };
 export default SwipeList;

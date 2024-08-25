@@ -22,7 +22,7 @@ const layouts: { [key: string]: Style } = {
 export const COLORS = {
   transparent: "#0000",
   white: "#FFF",
-  greyD: "#DDD",
+  greyC: "#CCC",
   font: "#FFF",
   background: "#223",
   squareGreen: "#368056",
@@ -78,7 +78,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.background,
   },
   centeredContainer: layouts.centeredContainer,
-  pageContainer: { ...layouts.container, marginVertical: 50 },
+  pageContainer: {
+    ...layouts.container,
+    marginVertical: 50,
+  },
   container: layouts.container,
   text: { color: COLORS.font },
   square: layouts.square,
