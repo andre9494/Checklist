@@ -1,3 +1,5 @@
+import * as Crypto from 'expo-crypto'
+
 interface IListItem {
   id: string;
   title: string;
@@ -7,8 +9,8 @@ interface IListItem {
 
 export default IListItem;
 
-const createNewListItem = (title: string): IListItem => ({
-  id: crypto.randomUUID(),
+export const createNewListItem = (title: string): IListItem => ({
+  id: Crypto.randomUUID(),
   title: title,
   finished: false,
   deleted: false,

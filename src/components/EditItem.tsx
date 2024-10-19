@@ -1,31 +1,17 @@
-import { TextInput, TextStyle, View } from "react-native";
+import { TextInput, View } from "react-native";
 import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
 import { useState } from "react";
 import { COLORS } from "../../styles";
-import IListItem from "../interfaces/IListItem";
-import CONSTANTS from "../constants";
+import IListItem, { createNewListItem } from "../interfaces/IListItem";
 
-const EditItem = (props: { item: IListItem }) => {
-  // const { text, edit, setEdit, onBlur } = props;
+const EditItem = (props: { setNewItem: React.Dispatch<React.SetStateAction<IListItem | undefined>> }) => {
+  const { setNewItem } = props;
   const [finished, setFinished] = useState<boolean>(false);
-  const [item, setItem] = useState<IListItem>(props.item);
-
-  const updateItem = () => {
-    props.item = item;
-    setItem({ ...item });
-  };
 
   const onEndEditing = (e: any) => {
-    
-    
-    const newValue: string = e.nativeEvent.text;
-    
-    console.log("onEndEditing ", newValue);
-    if (newValue) {
-      item.title = newValue;
-    }
-    updateItem();
+    const newTitle: string = e.nativeEvent.text;
+    setNewItem(createNewListItem(newTitle));
   };
 
   return (
@@ -53,8 +39,8 @@ const EditItem = (props: { item: IListItem }) => {
                     fontSize: 18,
                     color: COLORS.white,
                   }}
-                  placeholder={item.title || CONSTANTS.STRING.WRITE_YOUR_ITEM}
-                  placeholderTextColor={COLORS.greyC}
+                  // placeholder={item.title || CONSTANTS.STRING.WRITE_YOUR_ITEM}
+                  // placeholderTextColor={COLORS.greyC}
                   autoFocus={true}
                   onEndEditing={onEndEditing}
                 />

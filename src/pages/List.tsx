@@ -14,6 +14,7 @@ const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
   const [listItems, setListItems] = useState<Array<ISwipeListItem>>([]);
   const [newItem, setNewItem] = useState<IListItem>();
+  const [add, setAdd] = useState<boolean>();
 
   useEffect(() => {
     getAllCurrentItems().then((list: Array<IListItem>) => {
@@ -196,17 +197,21 @@ const List = () => {
         // },
       ];
       // #endregion
-      setData(a);
+      setData(a ?? []);
       setListItems(a.map((x) => ({ key: x.id, text: x.title })));
     });
   }, []);
 
   useEffect(() => {
-    // console.log("teste: ", newItem?.title);
-    if(newItem && newItem.title){
-      
+    if (data && newItem && newItem.title) {
+      data.push(newItem);
+      setData([...data]);
     }
   }, [newItem]);
+
+  useEffect(() => {
+    console.log("data: ", data);
+  }, [data]);
 
   //#region item support functions
   const renderItem = (selected: { item: ISwipeListItem }) => {
@@ -225,23 +230,15 @@ const List = () => {
   //#endregion
 
   const addOnClick = () => {
-    setNewItem({
-      id: "",
-      title: "",
-      finished: false,
-      deleted: false,
-      // edit: true,
-    });
+    setAdd(true);
   };
 
   return (
     <PageContainer
       onClick={() => {
-
         if (newItem) {
           setNewItem(undefined);
         }
-
       }}
     >
       <View
@@ -250,12 +247,9 @@ const List = () => {
           flexDirection: "row-reverse",
         }}
       >
-        <Button
-          text={CONSTANTS.STRING.ADD}
-          onClick={addOnClick}
-        />
+        <Button text={CONSTANTS.STRING.ADD} onClick={addOnClick} />
       </View>
-      {newItem && <EditItem item={newItem} />}
+      {add && <EditItem setNewItem={setNewItem} />}
       <SwipeList
         renderItem={renderItem}
         listData={listItems}
