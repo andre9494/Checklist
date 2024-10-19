@@ -1,4 +1,4 @@
-import IListItem from "./ListItem";
+import IListItem from "./IListItem";
 
 interface IItem extends IListItem {
   description: string;
