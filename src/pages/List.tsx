@@ -6,7 +6,7 @@ import IListItem from "../interfaces/IListItem";
 import { getAllCurrentItems } from "../storage/listStorage";
 import SwipeList from "../components/SwipeList";
 import Item from "../components/Item";
-import ISwipeListItem from "../interfaces/ISwipeListItem";
+import ISwipeListItem, { updateSwipeList } from "../interfaces/ISwipeListItem";
 import CONSTANTS from "../constants";
 import EditItem from "../components/EditItem";
 
@@ -14,7 +14,7 @@ const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
   const [listItems, setListItems] = useState<Array<ISwipeListItem>>([]);
   const [newItem, setNewItem] = useState<IListItem>();
-  const [add, setAdd] = useState<boolean>();
+  const [add, setAdd] = useState<boolean>(false);
 
   useEffect(() => {
     getAllCurrentItems().then((list: Array<IListItem>) => {
@@ -25,35 +25,30 @@ const List = () => {
           title: "teste 1",
           finished: false,
           deleted: false,
-          edit: false,
         },
         {
           id: "2",
           title: "teste 2",
           finished: false,
           deleted: false,
-          edit: false,
         },
         {
           id: "3",
           title: "teste 3",
           finished: false,
           deleted: false,
-          edit: false,
         },
         {
           id: "4",
           title: "teste 4",
           finished: false,
           deleted: false,
-          edit: false,
         },
         {
           id: "5",
           title: "teste 5",
           finished: false,
           deleted: false,
-          edit: false,
         },
         // {
         //   id: "6",
@@ -195,10 +190,10 @@ const List = () => {
         //   deleted: false,
         //   edit: false,
         // },
-      ];
+      ] as Array<IListItem>;
       // #endregion
       setData(a ?? []);
-      setListItems(a.map((x) => ({ key: x.id, text: x.title })));
+      setListItems(updateSwipeList(a));
     });
   }, []);
 
@@ -206,6 +201,7 @@ const List = () => {
     if (data && newItem && newItem.title) {
       data.push(newItem);
       setData([...data]);
+      setListItems([...updateSwipeList(data)]);
     }
   }, [newItem]);
 
@@ -234,13 +230,7 @@ const List = () => {
   };
 
   return (
-    <PageContainer
-      onClick={() => {
-        if (newItem) {
-          setNewItem(undefined);
-        }
-      }}
-    >
+    <PageContainer>
       <View
         style={{
           display: "flex",
@@ -249,7 +239,7 @@ const List = () => {
       >
         <Button text={CONSTANTS.STRING.ADD} onClick={addOnClick} />
       </View>
-      {add && <EditItem setNewItem={setNewItem} />}
+      {add && <EditItem setNewItem={setNewItem} setAdd={setAdd} />}
       <SwipeList
         renderItem={renderItem}
         listData={listItems}
