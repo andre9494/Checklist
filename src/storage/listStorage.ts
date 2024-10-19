@@ -2,19 +2,19 @@ import IListItem from "../interfaces/IListItem";
 import GenericDataStorage from "./genericDataStorage";
 const key: string = "itemList";
 class ListStorage {
+
   /**
    * Adds Item to List
    * @param item
    */
   static addItem = async (item: IListItem): Promise<void> => {
     try {
-      let items: Array<IListItem> | undefined = (await GenericDataStorage.getData(key)) as
-        | Array<IListItem>
-        | undefined;
+      let items: Array<IListItem> | undefined =
+        (await GenericDataStorage.getData(key)) as Array<IListItem> | undefined;
       if (!items) {
         items = [];
       }
-      items.push(item);
+      items.unshift(item);
       await GenericDataStorage.saveData(key, items);
     } catch (e) {
       // saving error
@@ -27,9 +27,8 @@ class ListStorage {
    */
   static removeItem = async (item: IListItem): Promise<void> => {
     try {
-      let items: Array<IListItem> | undefined = (await GenericDataStorage.getData(key)) as
-        | Array<IListItem>
-        | undefined;
+      let items: Array<IListItem> | undefined =
+        (await GenericDataStorage.getData(key)) as Array<IListItem> | undefined;
       if (!items) {
         return;
       }
@@ -46,9 +45,8 @@ class ListStorage {
    */
   static updateItem = async (item: IListItem): Promise<void> => {
     try {
-      let items: Array<IListItem> | undefined = (await GenericDataStorage.getData(key)) as
-        | Array<IListItem>
-        | undefined;
+      let items: Array<IListItem> | undefined =
+        (await GenericDataStorage.getData(key)) as Array<IListItem> | undefined;
       if (!items) {
         return;
       }
@@ -67,9 +65,8 @@ class ListStorage {
    */
   static deleteItem = async (item: IListItem | string): Promise<void> => {
     try {
-      let items: Array<IListItem> | undefined = (await GenericDataStorage.getData(key)) as
-        | Array<IListItem>
-        | undefined;
+      let items: Array<IListItem> | undefined =
+        (await GenericDataStorage.getData(key)) as Array<IListItem> | undefined;
       if (!items) {
         return;
       }
@@ -91,12 +88,21 @@ class ListStorage {
   };
 
   /**
+   * deletes all items
+   */
+  static deleteAllItems = async (): Promise<void> => {
+    await GenericDataStorage.saveData(key, []);
+  };
+
+  /**
    * gets Items list
    * @returns Array<IListItem>
    */
   static getAllItems = async (): Promise<Array<IListItem>> => {
     try {
-      return ((await GenericDataStorage.getData(key)) as Array<IListItem>) ?? [];
+      return (
+        ((await GenericDataStorage.getData(key)) as Array<IListItem>) ?? []
+      );
     } catch (e) {
       return [];
       // error reading value
@@ -144,9 +150,9 @@ class ListStorage {
    */
   static getItemById = async (id: string): Promise<IListItem | undefined> => {
     try {
-      return ((await GenericDataStorage.getData(key)) as Array<IListItem> | undefined)?.find(
-        (item: IListItem) => item.id == id,
-      );
+      return (
+        (await GenericDataStorage.getData(key)) as Array<IListItem> | undefined
+      )?.find((item: IListItem) => item.id == id);
     } catch (e) {
       // error reading value
     }
