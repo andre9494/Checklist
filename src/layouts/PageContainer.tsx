@@ -13,7 +13,6 @@ const PageContainer = (props: {
         style={{
           ...styles.pageContainer,
           height: "100%",
-          backgroundColor: "#F00",
         }}
         
       >

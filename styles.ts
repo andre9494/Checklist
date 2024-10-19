@@ -40,7 +40,6 @@ export const swipeListStyles = StyleSheet.create({
   },
   rowFront: {
     alignItems: "center",
-    // backgroundColor: "#blue",
     borderBottomColor: "black",
     borderBottomWidth: 1,
     justifyContent: "center",
