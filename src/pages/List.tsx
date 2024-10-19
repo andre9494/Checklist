@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import PageContainer from "../layouts/PageContainer";
 import Button from "../components/util/Button";
 import { View } from "react-native";
-import IListItem from "../interfaces/ListItem";
+import IListItem from "../interfaces/IListItem";
 import { getAllCurrentItems } from "../storage/listStorage";
 import SwipeList from "../components/SwipeList";
 import Item from "../components/Item";
 import ISwipeListItem from "../interfaces/ISwipeListItem";
 import CONSTANTS from "../constants";
+import EditItem from "../components/EditItem";
 
 const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
@@ -200,16 +201,13 @@ const List = () => {
     });
   }, []);
 
-  console.log("newItem id:" + newItem?.id + ", newItem.edit:" + newItem?.edit);
-
   useEffect(() => {
-    console.log("useeffect");
-    if(!newItem?.edit){
-      setNewItem(undefined);
+    // console.log("teste: ", newItem?.title);
+    if(newItem && newItem.title){
+      
     }
+  }, [newItem]);
 
-  }, [newItem && newItem.edit]);
-    
   //#region item support functions
   const renderItem = (selected: { item: ISwipeListItem }) => {
     const item: IListItem | undefined = data?.find(
@@ -225,6 +223,16 @@ const List = () => {
     }
   };
   //#endregion
+
+  const addOnClick = () => {
+    setNewItem({
+      id: "",
+      title: "",
+      finished: false,
+      deleted: false,
+      // edit: true,
+    });
+  };
 
   return (
     <PageContainer
@@ -244,18 +252,10 @@ const List = () => {
       >
         <Button
           text={CONSTANTS.STRING.ADD}
-          onClick={() => {
-            setNewItem({
-              id: "",
-              title: "",
-              finished: false,
-              deleted: false,
-              edit: true,
-            });
-          }}
+          onClick={addOnClick}
         />
       </View>
-      {newItem && <Item item={newItem} />}
+      {newItem && <EditItem item={newItem} />}
       <SwipeList
         renderItem={renderItem}
         listData={listItems}

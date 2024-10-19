@@ -1,4 +1,4 @@
-import IListItem from "../interfaces/ListItem";
+import IListItem from "../interfaces/IListItem";
 import { getData, saveData } from "./genericDataStorage";
 
 const key: string = "itemList";
