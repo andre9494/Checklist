@@ -18,182 +18,181 @@ const List = () => {
 
   useEffect(() => {
     ListStorage.getAllCurrentItems().then((list: Array<IListItem>) => {
-      //#region mockdata
-      const a = [
-        {
-          id: "1",
-          title: "teste 1",
-          finished: false,
-          deleted: false,
-        },
-        {
-          id: "2",
-          title: "teste 2",
-          finished: false,
-          deleted: false,
-        },
-        {
-          id: "3",
-          title: "teste 3",
-          finished: false,
-          deleted: false,
-        },
-        {
-          id: "4",
-          title: "teste 4",
-          finished: false,
-          deleted: false,
-        },
-        {
-          id: "5",
-          title: "teste 5",
-          finished: false,
-          deleted: false,
-        },
-        {
-          id: "6",
-          title: "teste 1",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "7",
-          title: "teste 2",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "8",
-          title: "teste 3",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "9",
-          title: "teste 4",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "10",
-          title: "teste 5",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "11",
-          title: "teste 1",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "12",
-          title: "teste 2",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "13",
-          title: "teste 3",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "14",
-          title: "teste 4",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "15",
-          title: "teste 5",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "16",
-          title: "teste 1",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "17",
-          title: "teste 2",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "18",
-          title: "teste 3",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "19",
-          title: "limit before failing",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "20",
-          title: "teste 5",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "21",
-          title: "teste 1",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "22",
-          title: "teste 2",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "23",
-          title: "teste 3",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "24",
-          title: "teste 4",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-        {
-          id: "25",
-          title: "teste 5",
-          finished: false,
-          deleted: false,
-          edit: false,
-        },
-      ] as Array<IListItem>;
-      // #endregion
-      setData(a ?? []);
-      setListItems(updateSwipeList(a));
+      // const a = [
+      //   {
+      //     id: "1",
+      //     title: "teste 1",
+      //     finished: false,
+      //     deleted: false,
+      //   },
+      //   {
+      //     id: "2",
+      //     title: "teste 2",
+      //     finished: false,
+      //     deleted: false,
+      //   },
+      //   {
+      //     id: "3",
+      //     title: "teste 3",
+      //     finished: false,
+      //     deleted: false,
+      //   },
+      //   {
+      //     id: "4",
+      //     title: "teste 4",
+      //     finished: false,
+      //     deleted: false,
+      //   },
+      //   {
+      //     id: "5",
+      //     title: "teste 5",
+      //     finished: false,
+      //     deleted: false,
+      //   },
+      //   {
+      //     id: "6",
+      //     title: "teste 1",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "7",
+      //     title: "teste 2",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "8",
+      //     title: "teste 3",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "9",
+      //     title: "teste 4",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "10",
+      //     title: "teste 5",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "11",
+      //     title: "teste 1",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "12",
+      //     title: "teste 2",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "13",
+      //     title: "teste 3",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "14",
+      //     title: "teste 4",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "15",
+      //     title: "teste 5",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "16",
+      //     title: "teste 1",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "17",
+      //     title: "teste 2",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "18",
+      //     title: "teste 3",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "19",
+      //     title: "limit before failing",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "20",
+      //     title: "teste 5",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "21",
+      //     title: "teste 1",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "22",
+      //     title: "teste 2",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "23",
+      //     title: "teste 3",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "24",
+      //     title: "teste 4",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      //   {
+      //     id: "25",
+      //     title: "teste 5",
+      //     finished: false,
+      //     deleted: false,
+      //     edit: false,
+      //   },
+      // ] as Array<IListItem>;
+      
+      setData(list ?? []);
+      setListItems(updateSwipeList(list));
     });
   }, []);
 
@@ -202,6 +201,7 @@ const List = () => {
       data.push(newItem);
       setData([...data]);
       setListItems([...updateSwipeList(data)]);
+      ListStorage.addItem(newItem);
     }
   }, [newItem]);
 
@@ -219,8 +219,14 @@ const List = () => {
 
   const onDelete = (key: string) => {
     if (data) {
-      const filteredData = [...data.filter((x: IListItem) => x.id != key)];
-      setData(filteredData);
+      const itemToDelete = data.find((item: IListItem) => item.id == key);
+      if (itemToDelete) {
+        const filteredData = [
+          ...data.filter((item: IListItem) => item.id != itemToDelete.id),
+        ];
+        setData(filteredData);
+        ListStorage.deleteItem(itemToDelete);
+      }
     }
   };
   //#endregion
