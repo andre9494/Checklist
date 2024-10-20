@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import PageContainer from "../layouts/PageContainer";
 import Button from "../components/util/Button";
 import { View, Text } from "react-native";
@@ -10,6 +10,7 @@ import CONSTANTS from "../constants";
 import EditItem from "../components/EditItem";
 import ListStorage from "../storage/listStorage";
 import ModalComponent from "../components/util/Modal";
+import Details from "./Details";
 
 const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
@@ -39,7 +40,19 @@ const List = () => {
     const item: IListItem | undefined = data?.find(
       (x: IListItem) => x.id == selected.item.key,
     );
-    return <>{item && <Item item={item} />}</>;
+    return (
+      <>
+        {item && (
+          <Item
+            item={item}
+            onclick={() => {
+              console.log("teste");
+              setShowModal(true);
+            }}
+          />
+        )}
+      </>
+    );
   };
 
   const onDelete = (key: string) => {
@@ -94,24 +107,14 @@ const List = () => {
           <View>
             <Button text={CONSTANTS.STRING.ADD} onClick={addOnClick} />
           </View>
-          <View>
-            <Button
-              text={"Test Modal"}
-              onClick={() => {
-                setShowModal(true);
-                // ListStorage.deleteAllItems();
-              }}
-            />
-          </View>
         </View>
       </View>
-      <ModalComponent
-        showModalState={{ showModal: showModal, setShowModal: setShowModal }}
-      >
-        <Text>
-          buenas
-        </Text>
-      </ModalComponent>
+      <Details
+        showModalState={{
+          showModal: showModal,
+          setShowModal: setShowModal,
+        }}
+      />
     </PageContainer>
   );
 };

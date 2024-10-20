@@ -5,7 +5,8 @@ import Container from "../layouts/Container";
 import { useState } from "react";
 import IListItem from "../interfaces/IListItem";
 
-const Item = (props: { item: IListItem }) => {
+const Item = (props: { item: IListItem, onclick?: ()=>void }) => {
+  const { onclick } = props;
   const [finished, setFinished] = useState<boolean>(false);
   const [item, setItem] = useState<IListItem>(props.item);
 
@@ -40,6 +41,7 @@ const Item = (props: { item: IListItem }) => {
               paddingHorizontal: 20,
               paddingVertical: 14,
             }}
+            onPress={onclick}
           >
             <TextField
               style={{
