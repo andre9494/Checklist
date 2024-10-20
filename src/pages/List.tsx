@@ -39,7 +39,6 @@ const List = () => {
       data[data.findIndex((i: IListItem) => i.id == item.id)] = item;
       setData([...data]);
     }
-    console.log("data", data);
   }
   
 
@@ -54,7 +53,6 @@ const List = () => {
           <Item
             item={item}
             onclick={() => {
-              console.log("teste");
               setShowModal(true);
             }}
             refreshData={refreshData}
