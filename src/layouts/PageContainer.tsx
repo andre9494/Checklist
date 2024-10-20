@@ -14,7 +14,6 @@ const PageContainer = (props: {
           ...styles.pageContainer,
           height: "100%",
         }}
-        
       >
         {children}
       </View>

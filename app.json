@@ -19,15 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "foregroundImage": "./assets/logo.png"
+      },
+      "package": "com.andre9494.Checklist"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      
-    ]
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "740b8815-f0ac-4158-9a7e-8cf34abdbbee"
+      }
+    }
   }
 }
