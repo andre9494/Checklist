@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PageContainer from "../layouts/PageContainer";
 import Button from "../components/util/Button";
-import { Modal, View } from "react-native";
+import { View, Text } from "react-native";
 import IListItem from "../interfaces/IListItem";
 import SwipeList from "../components/SwipeList";
 import Item from "../components/Item";
@@ -9,7 +9,7 @@ import ISwipeListItem, { updateSwipeList } from "../interfaces/ISwipeListItem";
 import CONSTANTS from "../constants";
 import EditItem from "../components/EditItem";
 import ListStorage from "../storage/listStorage";
-import { COLORS } from "../../styles";
+import ModalComponent from "../components/util/Modal";
 
 const List = () => {
   const [data, setData] = useState<Array<IListItem>>();
@@ -96,23 +96,22 @@ const List = () => {
           </View>
           <View>
             <Button
-              text={"teste"}
+              text={"Test Modal"}
               onClick={() => {
                 setShowModal(true);
+                // ListStorage.deleteAllItems();
               }}
             />
           </View>
         </View>
       </View>
-      <Modal
-        animationType="slide"
-        visible={showModal}
-        // transparent={true}
-        style={{backgroundColor:COLORS.background}}
-        onRequestClose={() => {
-          setShowModal(false);
-        }}
-      ></Modal>
+      <ModalComponent
+        showModalState={{ showModal: showModal, setShowModal: setShowModal }}
+      >
+        <Text>
+          buenas
+        </Text>
+      </ModalComponent>
     </PageContainer>
   );
 };
