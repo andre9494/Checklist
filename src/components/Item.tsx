@@ -4,16 +4,24 @@ import Checkbox from "expo-checkbox";
 import Container from "../layouts/Container";
 import { useState } from "react";
 import IListItem from "../interfaces/IListItem";
+import ListStorage from "../storage/listStorage";
 
-const Item = (props: { item: IListItem, onclick?: ()=>void }) => {
-  const { onclick } = props;
-  const [finished, setFinished] = useState<boolean>(false);
+const Item = (props: {
+  item: IListItem;
+  onclick?: () => void;
+  refreshData?: (item:IListItem) => void;
+}) => {
+  const { onclick, refreshData } = props;
+  const [finished, setFinished] = useState<boolean>(props.item.finished);
   const [item, setItem] = useState<IListItem>(props.item);
 
-  // const refreshItem = () => {
-  //   props.item = item;
-  //   setItem({ ...item });
-  // };
+  const refreshItem = () => {
+    setItem({ ...item });
+    ListStorage.updateItem(item);
+    if(refreshData){
+      refreshData(item);
+    }
+  };
 
   const strikeThroughStyle: TextStyle = {
     textDecorationLine: "line-through",
@@ -30,7 +38,9 @@ const Item = (props: { item: IListItem, onclick?: ()=>void }) => {
             <Checkbox
               value={finished}
               onValueChange={() => {
+                item.finished = !finished;
                 setFinished(!finished);
+                refreshItem();
               }}
             />
           </Container>
