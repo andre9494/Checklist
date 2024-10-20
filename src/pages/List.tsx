@@ -1,7 +1,7 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PageContainer from "../layouts/PageContainer";
 import Button from "../components/util/Button";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import IListItem from "../interfaces/IListItem";
 import SwipeList from "../components/SwipeList";
 import Item from "../components/Item";
@@ -9,7 +9,6 @@ import ISwipeListItem, { updateSwipeList } from "../interfaces/ISwipeListItem";
 import CONSTANTS from "../constants";
 import EditItem from "../components/EditItem";
 import ListStorage from "../storage/listStorage";
-import ModalComponent from "../components/util/Modal";
 import Details from "./Details";
 
 const List = () => {
@@ -35,6 +34,14 @@ const List = () => {
     }
   }, [newItem]);
 
+  const refreshData = (item:IListItem) =>{
+    if (data) {
+      data[data.findIndex((i: IListItem) => i.id == item.id)] = item;
+      setData([...data]);
+    }
+  }
+  
+
   //#region item support functions
   const renderItem = (selected: { item: ISwipeListItem }) => {
     const item: IListItem | undefined = data?.find(
@@ -46,9 +53,9 @@ const List = () => {
           <Item
             item={item}
             onclick={() => {
-              console.log("teste");
               setShowModal(true);
             }}
+            refreshData={refreshData}
           />
         )}
       </>
